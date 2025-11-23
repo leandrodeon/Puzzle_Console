@@ -5,7 +5,7 @@
 #include <time.h>
 #define MAX 10
 
-// Declarações de funções
+// Declaracoes de funcoes
 int dimensoes();
 int carregar_user();
 void ranking();
@@ -26,18 +26,18 @@ typedef struct {
 int dimensoes() {
     int nxn;
     printf("\nInforme o tamanho do tabuleiro (N x N)");
-    printf("\nDigite um número inteiro entre 3 e 10.");
+    printf("\nDigite um numero inteiro entre 3 e 10.");
     printf("\n[N]: ");
     scanf("%d", &nxn);
     printf("\n[OK] Tabuleiro NxN criado! %dx%d", nxn, nxn);
-    printf("\nMisturando peças...\n");
+    printf("\nMisturando pecas...\n");
     return nxn;
 }
 
 int carregar_user(user jogadores[], int max) {
     FILE *cadastro_user = fopen("cadastro.txt", "r");
     if (!cadastro_user) {
-        printf("\n[ERRO] Não foi possível abrir o arquivo 'cadastro.txt'.\n");
+        printf("\n[ERRO] Nao foi possivel abrir o arquivo 'cadastro.txt'.\n");
         return 0;
     }
 
@@ -74,7 +74,7 @@ void salvar_pontuacao(const char *nome, int pontuacao) {
 
     FILE *cadastro_user = fopen("cadastro.txt", "w");
     if (!cadastro_user) {
-        printf("\n[ERRO] Não foi possível salvar no arquivo 'cadastro.txt'.\n");
+        printf("\n[ERRO] Nao foi possivel salvar no arquivo 'cadastro.txt'.\n");
         return;
     }
 
@@ -111,22 +111,7 @@ void ranking() {
     }
 }
 
-// // Função para imprimir o tabuleiro
-// void imprimir_tabuleiro(int matriz[MAX][MAX], int n) {
-//     printf("\n===== TABULEIRO %dx%d =====\n", n, n);
-//     for (int i = 0; i < n; i++) {
-//         for (int j = 0; j < n; j++) {
-//             if (matriz[i][j] == 0)
-//                 printf("   ");
-//             else
-//                 printf("%3d", matriz[i][j]);
-//         }
-//         printf("\n");
-//     }
-//     printf("===========================\n");
-// }
-
-// Função para imprimir o tabuleiro (layout igual ao ImprimirMatriz)
+// Funcao para imprimir o tabuleiro (layout igual ao ImprimirMatriz)
 void imprimir_tabuleiro(int matriz[MAX][MAX], int n) {
     int i, j;
 
@@ -147,7 +132,6 @@ void imprimir_tabuleiro(int matriz[MAX][MAX], int n) {
         printf("\t|");
         for (j = 0; j < n; j++) {
             if (matriz[i][j] == 0) {
-                // Espaço vazio no lugar do 0
                 printf("    |");
             } else {
                 printf(" %2d |", matriz[i][j]);
@@ -155,7 +139,7 @@ void imprimir_tabuleiro(int matriz[MAX][MAX], int n) {
         }
         printf("\n");
 
-        // Linha de separação / rodapé
+        // Linha de separacao / rodape
         printf("\t+");
         for (j = 0; j < n; j++) {
             printf("----");
@@ -169,8 +153,7 @@ void imprimir_tabuleiro(int matriz[MAX][MAX], int n) {
     printf("\n");
 }
 
-
-// Função que imprime o movimento feito pelo jogador
+// Funcao que imprime o movimento feito pelo jogador
 void imprimir_movimento(int matriz[MAX][MAX], int n, char movimento) {
     system("cls || clear");
     printf("\n===== MOVIMENTO FEITO =====\n");
@@ -180,21 +163,13 @@ void imprimir_movimento(int matriz[MAX][MAX], int n, char movimento) {
         case 's': case 'S': printf("Movimento: BAIXO (S)\n"); break;
         case 'a': case 'A': printf("Movimento: ESQUERDA (A)\n"); break;
         case 'd': case 'D': printf("Movimento: DIREITA (D)\n"); break;
-        default: printf("Movimento: inválido (%c)\n", movimento);
+        default: printf("Movimento: invalido (%c)\n", movimento);
     }
 
     printf("===========================\n");
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (matriz[i][j] == 0)
-                printf("   ");
-            else
-                printf("%3d", matriz[i][j]);
-        }
-        printf("\n");
-    }
-    printf("===========================\n");
+    // Usa o mesmo layout da primeira impressao
+    imprimir_tabuleiro(matriz, n);
 }
 
 // Inicializa o tabuleiro ordenado
@@ -248,7 +223,7 @@ void embaralhar_tabuleiro(int matriz[MAX][MAX], int n) {
     }
 }
 
-// Verifica se o tabuleiro está na ordem correta
+// Verifica se o tabuleiro esta na ordem correta
 int verificar_vitoria(int matriz[MAX][MAX], int n) {
     int valor = 1;
     for (int i = 0; i < n; i++) {
@@ -274,7 +249,7 @@ int menu() {
         printf("\n[2] Ver Ranking                                ");
         printf("\n[3] Sair                                       ");
         printf("\n===============================================\n");
-        printf("Opção: ");
+        printf("Opcao: ");
         scanf("%d", &opcao);
 
         switch (opcao) {
@@ -288,7 +263,7 @@ int menu() {
                 int movimentos = 0;
                 char nome[50];
 
-                printf("\nDigite seu nome (sem espaços): ");
+                printf("\nDigite seu nome (sem espacos): ");
                 scanf("%49s", nome);
 
                 imprimir_tabuleiro(matriz, n);
@@ -305,7 +280,7 @@ int menu() {
                         movimentos++;
                         imprimir_movimento(matriz, n, movimento);
                     } else {
-                        printf("\nMovimento inválido!\n");
+                        printf("\nMovimento invalido!\n");
                     }
 
                 } while (!verificar_vitoria(matriz, n));
@@ -313,8 +288,8 @@ int menu() {
                 if (verificar_vitoria(matriz, n)) {
                     int pontuacao = 1000 - movimentos;
                     if (pontuacao < 0) pontuacao = 0;
-                    printf("\nParabéns! Você completou o puzzle!\n");
-                    printf("Movimentos: %d | Pontuação: %d\n", movimentos, pontuacao);
+                    printf("\nParabens! Voce completou o puzzle!\n");
+                    printf("Movimentos: %d | Pontuacao: %d\n", movimentos, pontuacao);
                     salvar_pontuacao(nome, pontuacao);
                 }
                 break;
@@ -329,7 +304,7 @@ int menu() {
                 return 0;
 
             default:
-                printf("\nOpção inválida. Pressione ENTER para continuar");
+                printf("\nOpcao invalida. Pressione ENTER para continuar");
                 while (getchar() != '\n');
                 getchar();
         }
@@ -338,7 +313,7 @@ int menu() {
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
-    srand(time(NULL)); // embaralhamento aleatório
+    srand(time(NULL)); // embaralhamento aleatorio
     menu();
     return 0;
 }
